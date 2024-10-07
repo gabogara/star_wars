@@ -1,4 +1,6 @@
 import pygame
+from pygame import mixer
+
 
 pygame.init()
 size=(800,600)
@@ -9,3 +11,8 @@ pygame.display.set_caption("Star wars")
 icon = pygame.image.load("ovni.png")
 pygame.display.set_icon(icon)
 background = pygame.image.load('Fondo.jpg')
+
+# We add music
+mixer.music.load('BackgroundMusic.mp3')
+mixer.music.set_volume(0.3)
+mixer.music.play(-1)
