@@ -16,3 +16,13 @@ background = pygame.image.load('Fondo.jpg')
 mixer.music.load('BackgroundMusic.mp3')
 mixer.music.set_volume(0.3)
 mixer.music.play(-1)
+
+# Player variables
+img_player = pygame.image.load("rocket.png")
+player_x = 368
+player_y = 500
+player_x_change = 0
+
+
+
+
