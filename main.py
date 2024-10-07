@@ -1,5 +1,6 @@
 import pygame
 import random
+import math
 from pygame import mixer
 
 
@@ -39,5 +40,26 @@ for e in range(enemy_amount):
     enemy_x_change.append(0.5)
     enemy_y_change.append(50)
 
+# bullet variables
+img_bullet = pygame.image.load("bullet.png")
+bullet_x = 0
+bullet_y = 500
+bullet_x_change = 0
+bullet_y_change = 3
+bullet_visible = False
 
+# score
+score = 0
+#font = pygame.font.Font('fastest.ttf', 32)
+text_x = 10
+text_y = 10
 
+# Game Loop
+is_exec = True
+while is_exec:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            is_exec = False
+
+    screen.fill((205, 144, 228))
+    pygame.display.update()
