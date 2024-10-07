@@ -23,7 +23,10 @@ mixer.music.play(-1)
 img_player = pygame.image.load("rocket.png")
 player_x = 368
 player_y = 500
-player_x_change = 0
+#player_x_change = 0
+
+def player():
+    screen.blit(img_player, (player_x, player_y))
 
 # Enemy variables
 img_enemy = []
@@ -57,9 +60,14 @@ text_y = 10
 # Game Loop
 is_exec = True
 while is_exec:
+    #RGB
+    screen.fill((205, 144, 228))
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             is_exec = False
 
-    screen.fill((205, 144, 228))
+    player()
+
+
     pygame.display.update()
