@@ -27,24 +27,19 @@ player_x = 368
 player_y = 536
 player_x_change = 0
 
+# Enemy variables
+img_enemy = pygame.image.load("enemy.png")
+enemy_x = random.randint(0,736)
+enemy_y = random.randint(50,200)
+enemy_x_change = 0
+
 # Player Function
 def player(x,y):
     screen.blit(img_player, (x,y))
 
-# Enemy variables
-img_enemy = []
-enemy_x = []
-enemy_y = []
-enemy_x_change = []
-enemy_y_change = []
-enemy_amount = 8
-
-for e in range(enemy_amount):
-    img_enemy.append(pygame.image.load("enemy.png"))
-    enemy_x.append(random.randint(0, 736))
-    enemy_y.append(random.randint(50, 200))
-    enemy_x_change.append(0.5)
-    enemy_y_change.append(50)
+# Enemy Function
+def enemy(x,y):
+    screen.blit(img_enemy, (x,y))
 
 # bullet variables
 img_bullet = pygame.image.load("bullet.png")
@@ -81,14 +76,17 @@ while is_exec:
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 player_x_change = 0
-    # Ubication modify
+    # Location modify
     player_x += player_x_change
-    player(player_x,player_y)
 
     #Keep inside
     if player_x <=0:
         player_x =0
     if player_x >= 736:
         player_x = 736
+
+    player(player_x, player_y)
+    enemy(enemy_x, enemy_y)
+
     #Update display
     pygame.display.update()
