@@ -14,7 +14,7 @@ screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Star wars")
 icon = pygame.image.load("ovni.png")
 pygame.display.set_icon(icon)
-#background = pygame.image.load('Background.jpg')
+background = pygame.image.load('Background.jpg')
 
 # We add music
 mixer.music.load('BackgroundMusic.mp3')
@@ -24,14 +24,15 @@ mixer.music.play(-1)
 # Player variables
 img_player = pygame.image.load("rocket.png")
 player_x = 368
-player_y = 536
+player_y = 520
 player_x_change = 0
 
 # Enemy variables
 img_enemy = pygame.image.load("enemy.png")
 enemy_x = random.randint(0,736)
 enemy_y = random.randint(50,200)
-enemy_x_change = 0
+enemy_x_change = 0.3
+enemy_y_change = 50
 
 # Player Function
 def player(x,y):
@@ -59,7 +60,8 @@ text_y = 10
 is_exec = True
 while is_exec:
     # RGB
-    screen.fill((205, 144, 228))
+    #screen.fill((205, 144, 228))
+    screen.blit(background,(0,0))
     #iterate event
     for event in pygame.event.get():
 
@@ -76,14 +78,26 @@ while is_exec:
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 player_x_change = 0
-    # Location modify
+
+    # Modify Location  player
     player_x += player_x_change
 
-    #Keep inside
+    #Keep player inside
     if player_x <=0:
         player_x =0
     if player_x >= 736:
         player_x = 736
+
+    # Modify Location enemy
+    enemy_x += enemy_x_change
+
+    # Keep enemy inside
+    if enemy_x <= 0:
+       enemy_x_change = 0.3
+       enemy_y += enemy_y_change
+    elif enemy_x >= 736:
+       enemy_x_change = -0.3
+       enemy_y += enemy_y_change
 
     player(player_x, player_y)
     enemy(enemy_x, enemy_y)
