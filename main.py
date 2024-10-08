@@ -16,9 +16,9 @@ icon = pygame.image.load("ovni.png")
 pygame.display.set_icon(icon)
 background = pygame.image.load('Background.jpg')
 
-# We add music
+# I add music
 mixer.music.load('BackgroundMusic.mp3')
-mixer.music.set_volume(0.3)
+mixer.music.set_volume(0.2)
 mixer.music.play(-1)
 
 # Player variables
@@ -52,9 +52,21 @@ bullet_visible = False
 
 # score
 score = 0
-#font = pygame.font.Font('fastest.ttf', 32)
+font = pygame.font.Font('freesansbold.ttf', 32)
 text_x = 10
 text_y = 10
+
+# end of game text
+final_font = pygame.font.Font('freesansbold.ttf', 40)
+
+def final_text():
+    my_final_font = final_font.render("Game over", True, (255, 255, 255))
+    screen.blit(my_final_font, (60, 200))
+
+# Show score function
+def show_score(x, y):
+    text = font.render(f"Score: {score}", True, (255, 255, 255))
+    screen.blit(text, (x, y))
 
 # Player Function
 def player(x,y):
@@ -81,6 +93,7 @@ def there_collision(x_1,y_1,x_2, y_2):
 # Game Loop
 is_exec = True
 while is_exec:
+
     # Image background
     screen.blit(background,(0,0))
 
@@ -121,6 +134,12 @@ while is_exec:
     # modify enemy location
     for e in range(enemy_amount):
 
+        # End game
+        if enemy_y[e] > 500:
+            for k in range(enemy_amount):
+                enemy_y[k] = 1000
+            final_text()
+            break
 
         enemy_x[e] += enemy_x_change[e]
 
@@ -156,7 +175,7 @@ while is_exec:
 
     player(player_x, player_y)
 
-    #show_score(texto_x, texto_y)
+    show_score(text_x, text_y)
 
     # Update
     pygame.display.update()
