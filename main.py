@@ -34,6 +34,20 @@ enemy_y = random.randint(50,200)
 enemy_x_change = 0.3
 enemy_y_change = 50
 
+# bullet variables
+img_bullet = pygame.image.load("bullet.png")
+bullet_x = 0
+bullet_y = 500
+bullet_x_change = 0
+bullet_y_change = 1
+bullet_visible = False
+
+# score
+score = 0
+#font = pygame.font.Font('fastest.ttf', 32)
+text_x = 10
+text_y = 10
+
 # Player Function
 def player(x,y):
     screen.blit(img_player, (x,y))
@@ -42,19 +56,11 @@ def player(x,y):
 def enemy(x,y):
     screen.blit(img_enemy, (x,y))
 
-# bullet variables
-img_bullet = pygame.image.load("bullet.png")
-bullet_x = 0
-bullet_y = 536
-bullet_x_change = 0
-bullet_y_change = 3
-bullet_visible = False
-
-# score
-score = 0
-#font = pygame.font.Font('fastest.ttf', 32)
-text_x = 10
-text_y = 10
+# Bullet function
+def shoot_bullet(x,y):
+    global bullet_visible
+    bullet_visible = True
+    screen.blit(img_bullet, (x + 16,y + 10))
 
 # Game Loop
 is_exec = True
@@ -68,12 +74,15 @@ while is_exec:
         # Close event
         if event.type == pygame.QUIT:
             is_exec = False
-        # Keydown event
+        # Keys event
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 player_x_change = -0.4
             if event.key == pygame.K_RIGHT:
                 player_x_change = 0.4
+            if event.key == pygame.K_SPACE:
+                shoot_bullet(player_x, bullet_y)
+
         #KeyUp event
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
@@ -98,6 +107,11 @@ while is_exec:
     elif enemy_x >= 736:
        enemy_x_change = -0.3
        enemy_y += enemy_y_change
+
+    # Move bullet
+    if bullet_visible:
+        shoot_bullet(player_x, bullet_y)
+        bullet_y -= bullet_y_change
 
     player(player_x, player_y)
     enemy(enemy_x, enemy_y)
