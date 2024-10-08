@@ -24,22 +24,30 @@ mixer.music.play(-1)
 # Player variables
 img_player = pygame.image.load("rocket.png")
 player_x = 368
-player_y = 520
+player_y = 500
 player_x_change = 0
 
 # Enemy variables
-img_enemy = pygame.image.load("enemy.png")
-enemy_x = random.randint(0,736)
-enemy_y = random.randint(50,200)
-enemy_x_change = 0.3
-enemy_y_change = 50
+img_enemy = []
+enemy_x = []
+enemy_y = []
+enemy_x_change = []
+enemy_y_change = []
+enemy_amount = 8
+
+for e in range(enemy_amount):
+    img_enemy.append(pygame.image.load("enemy.png"))
+    enemy_x.append(random.randint(0, 736))
+    enemy_y.append(random.randint(50, 200))
+    enemy_x_change.append(0.5)
+    enemy_y_change.append(50)
 
 # bullet variables
 img_bullet = pygame.image.load("bullet.png")
 bullet_x = 0
 bullet_y = 500
-bullet_x_change = 3
-bullet_y_change = 1
+bullet_x_change = 0
+bullet_y_change = 3
 bullet_visible = False
 
 # score
@@ -53,8 +61,8 @@ def player(x,y):
     screen.blit(img_player, (x,y))
 
 # Enemy Function
-def enemy(x,y):
-    screen.blit(img_enemy, (x,y))
+def enemy(x,y, ene):
+    screen.blit(img_enemy[ene], (x,y))
 
 # Shoot Bullet function
 def shoot_bullet(x,y):
@@ -69,75 +77,86 @@ def there_collision(x_1,y_1,x_2, y_2):
         return True
     else:
         return False
+
 # Game Loop
 is_exec = True
 while is_exec:
-    # RGB
-    #screen.fill((205, 144, 228))
+    # Image background
     screen.blit(background,(0,0))
+
     #iterate event
     for event in pygame.event.get():
 
-        # Close event
+        # event close
         if event.type == pygame.QUIT:
             is_exec = False
-        # Keys event
+
+        # event press keys
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 player_x_change = -1
             if event.key == pygame.K_RIGHT:
                 player_x_change = 1
             if event.key == pygame.K_SPACE:
+                sound_bullet = mixer.Sound('blast.mp3')
+                sound_bullet.play()
                 if not bullet_visible:
-                    bullet_x= player_x
+                    bullet_x = player_x
                     shoot_bullet(bullet_x, bullet_y)
 
-        #KeyUp event
+        # key release event
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 player_x_change = 0
 
-    # Modify Location  player
+   # modify player location
     player_x += player_x_change
 
-    #Keep player inside
-    if player_x <=0:
-        player_x =0
-    if player_x >= 736:
+    # keep player inside edges
+    if player_x <= 0:
+        player_x = 0
+    elif player_x >= 736:
         player_x = 736
 
-    # Modify Location enemy
-    enemy_x += enemy_x_change
+    # modify enemy location
+    for e in range(enemy_amount):
 
-    # Keep enemy inside
-    if enemy_x <= 0:
-       enemy_x_change = 1
-       enemy_y += enemy_y_change
-    elif enemy_x >= 736:
-       enemy_x_change = -1
-       enemy_y += enemy_y_change
 
-    # Move bullet
+        enemy_x[e] += enemy_x_change[e]
+
+        # keep enemy inside borders
+        if enemy_x[e] <= 0:
+            enemy_x_change[e] = 1
+            enemy_y[e] += enemy_y_change[e]
+        elif enemy_x[e] >= 736:
+            enemy_x_change[e] = -1
+            enemy_y[e] += enemy_y_change[e]
+
+        # collision
+        collision = there_collision(enemy_x[e], enemy_y[e], bullet_x, bullet_y)
+        if collision:
+            sound_collision = mixer.Sound('explosion.mp3')
+            sound_collision.play()
+            bullet_y = 500
+            bullet_visible = False
+            score += 1
+            enemy_x[e] = random.randint(0, 736)
+            enemy_y[e] = random.randint(50, 200)
+
+        enemy(enemy_x[e], enemy_y[e], e)
+
+    # bullet trajectory
     if bullet_y <= -64:
-        bala_y =500
-        bullet_visible= False
+        bullet_y = 500
+        bullet_visible = False
 
     if bullet_visible:
         shoot_bullet(bullet_x, bullet_y)
         bullet_y -= bullet_y_change
 
-    # collision
-    collision = there_collision(enemy_x, enemy_y, bullet_x, bullet_y)
-    if collision:
-        bullet_y = 500
-        bullet_visible =  False
-        score +=1
-        print (score)
-        enemy_x = random.randint(0, 736)
-        enemy_y = random.randint(50, 200)
-
     player(player_x, player_y)
-    enemy(enemy_x, enemy_y)
 
-    #Update display
+    #show_score(texto_x, texto_y)
+
+    # Update
     pygame.display.update()
