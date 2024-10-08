@@ -3,8 +3,10 @@ import random
 import math
 from pygame import mixer
 
-
+# Run pygame
 pygame.init()
+
+# create screen
 size=(800,600)
 screen = pygame.display.set_mode(size)
 
@@ -12,7 +14,7 @@ screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Star wars")
 icon = pygame.image.load("ovni.png")
 pygame.display.set_icon(icon)
-background = pygame.image.load('Background.jpg')
+#background = pygame.image.load('Background.jpg')
 
 # We add music
 mixer.music.load('BackgroundMusic.mp3')
@@ -22,11 +24,10 @@ mixer.music.play(-1)
 # Player variables
 img_player = pygame.image.load("rocket.png")
 player_x = 368
-player_y = 500
-#player_x_change = 0
-
-def player():
-    screen.blit(img_player, (player_x, player_y))
+player_y = 536
+player_x_change = 0
+def player(x,y):
+    screen.blit(img_player, (x,y))
 
 # Enemy variables
 img_enemy = []
@@ -46,7 +47,7 @@ for e in range(enemy_amount):
 # bullet variables
 img_bullet = pygame.image.load("bullet.png")
 bullet_x = 0
-bullet_y = 500
+bullet_y = 536
 bullet_x_change = 0
 bullet_y_change = 3
 bullet_visible = False
@@ -60,14 +61,24 @@ text_y = 10
 # Game Loop
 is_exec = True
 while is_exec:
-    #RGB
+    # RGB
     screen.fill((205, 144, 228))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             is_exec = False
 
-    player()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                player_x_change = -0.3
+            if event.key == pygame.K_RIGHT:
+                player_x_change = 0.3
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                player_x_change = 0
+
+    player_x += player_x_change
+    player(player_x,player_y)
 
 
     pygame.display.update()
