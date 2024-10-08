@@ -26,6 +26,8 @@ img_player = pygame.image.load("rocket.png")
 player_x = 368
 player_y = 536
 player_x_change = 0
+
+# Player Function
 def player(x,y):
     screen.blit(img_player, (x,y))
 
@@ -63,22 +65,30 @@ is_exec = True
 while is_exec:
     # RGB
     screen.fill((205, 144, 228))
-
+    #iterate event
     for event in pygame.event.get():
+
+        # Close event
         if event.type == pygame.QUIT:
             is_exec = False
-
+        # Keydown event
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                player_x_change = -0.3
+                player_x_change = -0.4
             if event.key == pygame.K_RIGHT:
-                player_x_change = 0.3
+                player_x_change = 0.4
+        #KeyUp event
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 player_x_change = 0
-
+    # Ubication modify
     player_x += player_x_change
     player(player_x,player_y)
 
-
+    #Keep inside
+    if player_x <=0:
+        player_x =0
+    if player_x >= 736:
+        player_x = 736
+    #Update display
     pygame.display.update()
