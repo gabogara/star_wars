@@ -38,7 +38,7 @@ enemy_y_change = 50
 img_bullet = pygame.image.load("bullet.png")
 bullet_x = 0
 bullet_y = 500
-bullet_x_change = 0
+bullet_x_change = 3
 bullet_y_change = 1
 bullet_visible = False
 
@@ -62,6 +62,13 @@ def shoot_bullet(x,y):
     bullet_visible = True
     screen.blit(img_bullet, (x + 16, y + 10))
 
+# detect collisions
+def there_collision(x_1,y_1,x_2, y_2):
+    distance= math.sqrt(math.pow(x_1 - x_2, 2) + math.pow(y_2 - y_1 ,2))
+    if distance < 27:
+        return True
+    else:
+        return False
 # Game Loop
 is_exec = True
 while is_exec:
@@ -118,6 +125,16 @@ while is_exec:
     if bullet_visible:
         shoot_bullet(bullet_x, bullet_y)
         bullet_y -= bullet_y_change
+
+    # collision
+    collision = there_collision(enemy_x, enemy_y, bullet_x, bullet_y)
+    if collision:
+        bullet_y = 500
+        bullet_visible =  False
+        score +=1
+        print (score)
+        enemy_x = random.randint(0, 736)
+        enemy_y = random.randint(50, 200)
 
     player(player_x, player_y)
     enemy(enemy_x, enemy_y)
