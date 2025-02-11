@@ -1,16 +1,14 @@
-🌌 Star Wars API Explorer
-Welcome to Star Wars API Explorer! This project interacts with the SWAPI, the Star Wars API, to retrieve and display information about characters, planets, starships, and more.
+🌌 Star Wars - Data & Facts
+Welcome to Star Wars! This project provides information about Star Wars characters, planets, ships, and more in a structured format.
 
 🚀 Features
-Fetches data from the Star Wars API (SWAPI).
-Displays detailed information about Star Wars characters and other entities.
-Simple command-line interaction for retrieving data.
-
+Character Information: Names, species, and other details.
+Planets & Locations: Key locations in the Star Wars universe.
+Starships & Vehicles: Basic details about iconic ships and transports.
+Data stored locally: No API calls, all information is within the project files.
 
 🛠️ Technologies Used
 Language: Python
-Modules: requests (for API calls)
-
 
 📦 Installation & Execution
 Clone this repository
