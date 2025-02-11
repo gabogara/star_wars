@@ -5,7 +5,6 @@ Welcome to Star Wars! This project provides information about Star Wars characte
 Character Information: Names, species, and other details.
 Planets & Locations: Key locations in the Star Wars universe.
 Starships & Vehicles: Basic details about iconic ships and transports.
-Data stored locally: No API calls, all information is within the project files.
 
 🛠️ Technologies Used
 Language: Python
@@ -26,10 +25,9 @@ python star_wars.py
 
 
 🎮 How It Works
-The script makes API requests to the Star Wars API.
-Retrieves data based on user input (e.g., searching for a character).
-Displays relevant details such as name, species, films, and more.
-
+The program loads predefined Star Wars data.
+The user can search for characters, planets, or ships.
+The script displays the relevant information.
 
 📌 Project Status
 ✅ Completed - Additional features may be added in the future.
