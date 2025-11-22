@@ -1,17 +1,61 @@
-🌌 Star Wars Game - Welcome to Star Wars! This project provides information about Star War game and their structured format
+# Star Wars Game
 
-🚀 The game consists of taking control of a spaceship in order to eliminate all enemy ships before they reach the player's position and achieve as many points as possible
+Welcome to **Star Wars Game**!  
+This project is a classic arcade-style shooter where you pilot a spaceship and fight off waves of enemy ships.
 
-🛠️ Technologies used Language: Python
+---
 
-📦 Installation and execution Clone this repository git clone https://github. com/gabogara/star_wars.git cd star_wars
+## Gameplay
 
-Install dependencies Make sure you have Python installed, then install the required dependencies: pip install -r requirements.txt
+- Take control of a **spaceship**.
+- **Destroy all enemy ships** before they reach your position.
+- Try to **get the highest score possible** by surviving and eliminating enemies.
+- The game ends when the enemies reach you or you run out of lives.
 
-Run the python script star_wars.py
+---
 
-📌 Project status ✅ Completed - Additional features may be added in the future.
+## Technologies Used
 
-🤝 Contributing If you want to improve this project, feel free to fork the repository and send a pull request.
+- **Language:** Python  
+- **Libraries:** Pygame (and other libraries listed in `requirements.txt`)
 
-📧 Contact For suggestions or questions, write me at gabriel.acosta.rest@gmail.com
+---
+
+## Installation & Setup
+
+1. **Clone this repository:**
+
+```bash
+   git clone https://github.com/gabogara/star_wars.git
+   cd star_wars
+```
+2. Create and activate a virtual environment (optional but recommended):
+
+```bash
+    python -m venv venv
+    source venv/bin/activate   # macOS / Linux
+    venv\Scripts\activate      # Windows
+```
+
+3. Install dependencies
+```bash
+    pip install -r requirements.txt
+```
+## How to Run the Game
+```bash
+    python star_wars.py
+```
+---
+## Project Status
+
+- **Completed** : Additional features and improvements may be added in the future.
+
+## Contributing
+
+Contributions are welcome!
+If you’d like to improve this project:
+
+- Fork the repository
+- Create a new branch
+- Make your changes
+- Open a pull request
